@@ -49,6 +49,20 @@
     "text": "Conditional distritbutionn: transforming the response of a regression model\n\nOften"
   },
   {
+    "objectID": "index.html#linear-regression",
+    "href": "index.html#linear-regression",
+    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\n\n\n\n\n\nStatsModels extension\n\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to speciy the regression model."
+  },
+  {
+    "objectID": "index.html#mixed-model",
+    "href": "index.html#mixed-model",
+    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "section": "Mixed Model",
+    "text": "Mixed Model"
+  },
+  {
     "objectID": "presentation.html#boxcox",
     "href": "presentation.html#boxcox",
     "title": "BoxCox.jl – A lightweight package with nice extensions",
@@ -89,5 +103,19 @@
     "title": "BoxCox.jl – A lightweight package with nice extensions",
     "section": "Conditional distritbutionn: transforming the response of a regression model",
     "text": "Conditional distritbutionn: transforming the response of a regression model\n\nOften"
+  },
+  {
+    "objectID": "presentation.html#linear-regression",
+    "href": "presentation.html#linear-regression",
+    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "section": "Linear Regression",
+    "text": "Linear Regression\n\n\n\n\n\n\n\nStatsModels extension\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to speciy the regression model."
+  },
+  {
+    "objectID": "presentation.html#mixed-model",
+    "href": "presentation.html#mixed-model",
+    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "section": "Mixed Model",
+    "text": "Mixed Model"
   }
 ]

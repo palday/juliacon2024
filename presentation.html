@@ -505,6 +505,27 @@ resultant transformation:
 <ul>
 <li>Often</li>
 </ul>
+</section>
+<section id="linear-regression" class="slide level2">
+<h2>Linear Regression</h2>
+<div title="StatsModels extension">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>StatsModels extension</strong></p>
+</div>
+<div class="callout-content">
+<p>If StatsModels.jl is loaded (even indirectly via e.g.&nbsp;GLM.jl), then you can also use the <code>@formula</code> macro to speciy the regression model.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="mixed-model" class="slide level2">
+<h2>Mixed Model</h2>
 </section></section>
 <section id="references" class="title-slide slide level1 smaller scrollable">
 <h1>References</h1>
@@ -819,7 +840,7 @@ Box, G. E. P., &amp; Cox, D. R. (1964). <span class="nocase">An Analysis of Tran
       }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
+          var filterRegex = new RegExp("https:\/\/palday\.github\.io\/juliacon2024\/");
         var isInternal = (href) => {
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }

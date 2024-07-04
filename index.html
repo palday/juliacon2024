@@ -179,6 +179,8 @@ window.Quarto = {
   <li><a href="#conditional-distributions" id="toc-conditional-distributions" class="nav-link" data-scroll-target="#conditional-distributions">Conditional Distributions</a>
   <ul class="collapse">
   <li><a href="#conditional-distritbutionn-transforming-the-response-of-a-regression-model" id="toc-conditional-distritbutionn-transforming-the-response-of-a-regression-model" class="nav-link" data-scroll-target="#conditional-distritbutionn-transforming-the-response-of-a-regression-model">Conditional distritbutionn: transforming the response of a regression model</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
+  <li><a href="#mixed-model" id="toc-mixed-model" class="nav-link" data-scroll-target="#mixed-model">Mixed Model</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -343,6 +345,25 @@ Makie extension
 <ul>
 <li>Often</li>
 </ul>
+</section>
+<section id="linear-regression" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="StatsModels extension">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+StatsModels extension
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If StatsModels.jl is loaded (even indirectly via e.g.&nbsp;GLM.jl), then you can also use the <code>@formula</code> macro to speciy the regression model.</p>
+</div>
+</div>
+</section>
+<section id="mixed-model" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-model">Mixed Model</h2>
 </section>
 </section>
 <section id="references" class="level1">
@@ -593,7 +614,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/palday\.github\.io\/juliacon2024\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
