@@ -1,0 +1,104 @@
+---
+title: BoxCox.jl -- A lightweight package with nice extensions
+author: Phillip Alday
+date: last-modified
+julia:
+  exeflags: ["--project", "--threads=auto"]
+format: 
+  html: 
+    output-file: index.html
+  revealjs:
+    output-file: presentation.html
+---
+
+# The Box-Cox Transformation
+
+## @boxcox  
+
+$$
+\begin{cases}
+\frac{x^{\lambda} - 1}{\lambda} &\quad \lambda \neq 0 \\
+\log x &\quad \lambda = 0
+\end{cases}
+$$
+
+The denominator serves to normalize the transformation and preserve the original direction of the effect (the sign is flipped when $\lambda < 0$). In application, we may only care about the numerator (e.g. when it suggests using "speed" instead of "time".)
+
+## Example: Square of a Normal Distribution
+
+```{julia}
+using BoxCox
+using CairoMakie
+using Random
+CairoMakie.activate!(; type="svg")
+
+x = abs2.(randn(MersenneTwister(42), 1000))
+let f = Figure()
+    ax = Axis(f[1,1]; xlabel="x", ylabel="density")
+    density!(ax, x)
+    ax = Axis(f[1,2]; xlabel="theoretical quantiles", ylabel="observed values")
+    qqnorm!(ax, x)
+    colsize!(f.layout, 1, Aspect(1, 1.0))
+    colsize!(f.layout, 2, Aspect(1, 1.0))
+    resize_to_layout!(f)
+    f
+end
+```
+
+## Fitting the transformation
+
+<!-- :::: {.columns} -->
+
+<!-- ::: {.column width="50%"} -->
+```{julia}
+#| echo: true
+bc = fit(BoxCoxTransformation, x)
+```
+<!-- ::: -->
+
+<!-- ::: {.column width="50%"} -->
+
+## Examining the fitted transformation
+
+::: {.callout-note title="Makie extension"}
+If an appropriate Makie backend is loaded, then you can also do diagnostic plots. 
+:::
+
+```{julia}
+boxcoxplot(bc)
+```
+
+<!-- ::: -->
+
+<!-- :::: -->
+
+## Applying the fitted transformation
+
+```{julia}
+#| echo: true
+bc.(x)'
+```
+
+```{julia}
+#| fig-align: center
+let f = Figure(; size=(800, 300)), bcx = bc.(x)
+    ax = Axis(f[1,1]; xlabel="x", ylabel="density")
+    density!(ax, bcx)
+    ax = Axis(f[1,2]; xlabel="theoretical quantiles", ylabel="observed values")
+    qqnorm!(ax, bcx; qqline=:fitrobust)
+    colsize!(f.layout, 1, Aspect(1, 1.0))
+    colsize!(f.layout, 2, Aspect(1, 1.0))
+    resize_to_layout!(f)
+    f
+end
+```
+
+
+# Conditional Distributions
+
+## Conditional distritbutionn: transforming the response of a regression model
+
+- Often
+
+
+# References
