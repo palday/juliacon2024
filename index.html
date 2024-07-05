@@ -79,7 +79,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -123,6 +123,9 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -176,11 +179,17 @@ window.Quarto = {
   <li><a href="#examining-the-fitted-transformation" id="toc-examining-the-fitted-transformation" class="nav-link" data-scroll-target="#examining-the-fitted-transformation">Examining the fitted transformation</a></li>
   <li><a href="#applying-the-fitted-transformation" id="toc-applying-the-fitted-transformation" class="nav-link" data-scroll-target="#applying-the-fitted-transformation">Applying the fitted transformation</a></li>
   </ul></li>
-  <li><a href="#conditional-distributions" id="toc-conditional-distributions" class="nav-link" data-scroll-target="#conditional-distributions">Conditional Distributions</a>
+  <li><a href="#conditional-distributions-transforming-the-response-of-a-regression-model" id="toc-conditional-distributions-transforming-the-response-of-a-regression-model" class="nav-link" data-scroll-target="#conditional-distributions-transforming-the-response-of-a-regression-model">Conditional Distributions: transforming the response of a regression model</a>
   <ul class="collapse">
-  <li><a href="#conditional-distritbutionn-transforming-the-response-of-a-regression-model" id="toc-conditional-distritbutionn-transforming-the-response-of-a-regression-model" class="nav-link" data-scroll-target="#conditional-distritbutionn-transforming-the-response-of-a-regression-model">Conditional distritbutionn: transforming the response of a regression model</a></li>
+  <li><a href="#example-tree-growth" id="toc-example-tree-growth" class="nav-link" data-scroll-target="#example-tree-growth">Example: Tree Growth</a></li>
   <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression">Linear Regression</a></li>
-  <li><a href="#mixed-model" id="toc-mixed-model" class="nav-link" data-scroll-target="#mixed-model">Mixed Model</a></li>
+  <li><a href="#linear-regression-1" id="toc-linear-regression-1" class="nav-link" data-scroll-target="#linear-regression-1">Linear Regression</a></li>
+  </ul></li>
+  <li><a href="#this-also-works-for-mixed-models" id="toc-this-also-works-for-mixed-models" class="nav-link" data-scroll-target="#this-also-works-for-mixed-models">This also works for mixed models!</a>
+  <ul class="collapse">
+  <li><a href="#reaction-time-in-the-sleep-study" id="toc-reaction-time-in-the-sleep-study" class="nav-link" data-scroll-target="#reaction-time-in-the-sleep-study">Reaction time in the sleep study</a></li>
+  <li><a href="#fitting-the-transformation-1" id="toc-fitting-the-transformation-1" class="nav-link" data-scroll-target="#fitting-the-transformation-1">Fitting the transformation</a></li>
+  <li><a href="#speed-in-the-sleep-study" id="toc-speed-in-the-sleep-study" class="nav-link" data-scroll-target="#speed-in-the-sleep-study">Speed in the sleep study</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -296,7 +305,7 @@ Makie extension
 </div>
 </div>
 <div id="6" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcoxplot</span>(bc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcoxplot</span>(bc; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <figure class="figure">
@@ -338,16 +347,136 @@ Makie extension
 </div>
 </section>
 </section>
-<section id="conditional-distributions" class="level1">
-<h1>Conditional Distributions</h1>
-<section id="conditional-distritbutionn-transforming-the-response-of-a-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-distritbutionn-transforming-the-response-of-a-regression-model">Conditional distritbutionn: transforming the response of a regression model</h2>
-<ul>
-<li>Often</li>
-</ul>
+<section id="conditional-distributions-transforming-the-response-of-a-regression-model" class="level1">
+<h1>Conditional Distributions: transforming the response of a regression model</h1>
+<section id="example-tree-growth" class="level2">
+<h2 class="anchored" data-anchor-id="example-tree-growth">Example: Tree Growth</h2>
+<div id="12" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">RDatasets</span>: dataset as rdataset</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>trees <span class="op">=</span> <span class="fu">rdataset</span>(<span class="st">"datasets"</span>, <span class="st">"trees"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(trees, <span class="fl">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div><div style="float: left;"><span>5×3 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Girth</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Height</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Volume</th>
+</tr>
+<tr class="odd subheader headerLastRow">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Int64">Int64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: right;">8.6</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">10.3</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: right;">8.8</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">10.2</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: right;">10.5</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">16.4</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">18.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><span class="citation" data-cites="r">R Core Team (<a href="#ref-r" role="doc-biblioref">2024</a>)</span>; <span class="citation" data-cites="trees">Meyer (<a href="#ref-trees" role="doc-biblioref">1953</a>)</span></p>
 </section>
 <section id="linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div id="14" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> trees[!, <span class="op">:</span>Volume]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">hcat</span>(<span class="fu">ones</span>(<span class="fu">length</span>(y)), </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Height]), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Girth]))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bc_tree <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Box-Cox transformation
+
+estimated λ: -0.0673
+resultant transformation:
+
+ y^-0.1 - 1
+------------
+    -0.1</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<div id="16" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_tree; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-9-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Diagnostics matter!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Diagnostics matter!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\lambda=0\)</span> is well within the 95% CI and log fits in well with the rest of the model.</p>
+</div>
+</div>
+</section>
+<section id="linear-regression-1" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-1">Linear Regression</h2>
+<div id="18" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsModels</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fit</span>(BoxCoxTransformation, <span class="pp">@formula</span>(Volume <span class="op">~</span> <span class="fu">log</span>(Height) <span class="op">+</span> <span class="fu">log</span>(Girth)), trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Box-Cox transformation
+
+estimated λ: -0.0673
+resultant transformation:
+
+ y^-0.1 - 1
+------------
+    -0.1</code></pre>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled" title="StatsModels extension">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -362,8 +491,162 @@ StatsModels extension
 </div>
 </div>
 </section>
-<section id="mixed-model" class="level2">
-<h2 class="anchored" data-anchor-id="mixed-model">Mixed Model</h2>
+</section>
+<section id="this-also-works-for-mixed-models" class="level1">
+<h1>This also works for mixed models!</h1>
+<section id="reaction-time-in-the-sleep-study" class="level2">
+<h2 class="anchored" data-anchor-id="reaction-time-in-the-sleep-study">Reaction time in the sleep study</h2>
+<div id="20" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MixedModels</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>            <span class="pp">@formula</span>(reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;" data-quarto-table-cell-role="th"></td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">Est.</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">SE</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">z</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">p</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">σ_subj</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">251.4051</td>
+<td style="text-align: right;">6.6323</td>
+<td style="text-align: right;">37.91</td>
+<td style="text-align: right;">&lt;1e-99</td>
+<td style="text-align: right;">23.7805</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">days</td>
+<td style="text-align: right;">10.4673</td>
+<td style="text-align: right;">1.5022</td>
+<td style="text-align: right;">6.97</td>
+<td style="text-align: right;">&lt;1e-11</td>
+<td style="text-align: right;">5.7168</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Residual</td>
+<td style="text-align: right;">25.5918</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="fitting-the-transformation-1" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-the-transformation-1">Fitting the transformation</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div id="22" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>bc_mixed <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>               model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>Box-Cox transformation
+
+estimated λ: -1.0747
+resultant transformation:
+
+ y^-1.1 - 1
+------------
+    -1.1</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<div id="24" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_mixed; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+<figure class="figure">
+<p><img src="presentation_files/figure-html/cell-13-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Diagnostics matter!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Diagnostics matter!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\text{time}^{-1}\)</span> has a natural interpretation as <em>speed</em> and -1 is nearly as good as the “optimal” transformation. We thus use our domain expertise and use <em>speed</em> (as responses per second) instead of the fitted result.</p>
+</div>
+</div>
+</section>
+<section id="speed-in-the-sleep-study" class="level2">
+<h2 class="anchored" data-anchor-id="speed-in-the-sleep-study">Speed in the sleep study</h2>
+<div id="26" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_bc <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="pp">@formula</span>(<span class="fl">1000</span> <span class="op">/</span> reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;" data-quarto-table-cell-role="th"></td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">Est.</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">SE</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">z</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">p</td>
+<td style="text-align: right;" data-quarto-table-cell-role="th">σ_subj</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.9658</td>
+<td style="text-align: right;">0.1056</td>
+<td style="text-align: right;">37.55</td>
+<td style="text-align: right;">&lt;1e-99</td>
+<td style="text-align: right;">0.4190</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">days</td>
+<td style="text-align: right;">-0.1110</td>
+<td style="text-align: right;">0.0151</td>
+<td style="text-align: right;">-7.37</td>
+<td style="text-align: right;">&lt;1e-12</td>
+<td style="text-align: right;">0.0566</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Residual</td>
+<td style="text-align: right;">0.2698</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We use 1000 in the numerator to scale things back to seconds from milliseconds.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="references" class="level1">
@@ -376,6 +659,12 @@ StatsModels extension
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-boxcox" class="csl-entry" role="listitem">
 Box, G. E. P., &amp; Cox, D. R. (1964). <span class="nocase">An Analysis of Transformations</span>. <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, <em>26</em>(2), 211–243. <a href="https://doi.org/10.1111/j.2517-6161.1964.tb00553.x">https://doi.org/10.1111/j.2517-6161.1964.tb00553.x</a>
+</div>
+<div id="ref-trees" class="csl-entry" role="listitem">
+Meyer, H. A. (1953). <em>Forest mensuration.</em> Penns Valley Publishers.
+</div>
+<div id="ref-r" class="csl-entry" role="listitem">
+R Core Team. (2024). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
