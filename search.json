@@ -2,161 +2,161 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "\\[\n\\begin{cases}\n\\frac{x^{\\lambda} - 1}{\\lambda} &\\quad \\lambda \\neq 0 \\\\\n\\log x &\\quad \\lambda = 0\n\\end{cases}\n\\]\nThe denominator serves to normalize the transformation and preserve the original direction of the effect (the sign is flipped when \\(\\lambda &lt; 0\\)). In application, we may only care about the numerator (e.g. when it suggests using “speed” instead of “time”.)\n\n\n\n\nusing BoxCox\nusing CairoMakie\nusing Random\nCairoMakie.activate!(; type=\"svg\")\n\nx = abs2.(randn(MersenneTwister(42), 1000))\nlet f = Figure()\n    ax = Axis(f[1,1]; xlabel=\"x\", ylabel=\"density\")\n    density!(ax, x)\n    ax = Axis(f[1,2]; xlabel=\"theoretical quantiles\", ylabel=\"observed values\")\n    qqnorm!(ax, x)\n    colsize!(f.layout, 1, Aspect(1, 1.0))\n    colsize!(f.layout, 2, Aspect(1, 1.0))\n    resize_to_layout!(f)\n    f\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbc = fit(BoxCoxTransformation, x)\n\nBox-Cox transformation\n\nestimated λ: 0.2073\nresultant transformation:\n\n y^0.2 - 1\n-----------\n    0.2\n\n\n\n\n\n\n\n\n\n\n\n\n\nMakie extension\n\n\n\nIf an appropriate Makie backend is loaded, then you can also do diagnostic plots.\n\n\n\nboxcoxplot(bc; conf_level=0.95)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbc.(x)'\n\n1×1000 adjoint(::Vector{Float64}) with eltype Float64:\n -1.04197  -1.37758  -3.74249  -1.89776  …  -3.3449  -0.295085  -1.06768\n\n\n\nlet f = Figure(; size=(800, 300)), bcx = bc.(x)\n    ax = Axis(f[1,1]; xlabel=\"x\", ylabel=\"density\")\n    density!(ax, bcx)\n    ax = Axis(f[1,2]; xlabel=\"theoretical quantiles\", ylabel=\"observed values\")\n    qqnorm!(ax, bcx; qqline=:fitrobust)\n    colsize!(f.layout, 1, Aspect(1, 1.0))\n    colsize!(f.layout, 2, Aspect(1, 1.0))\n    resize_to_layout!(f)\n    f\nend"
   },
   {
     "objectID": "index.html#boxcox",
     "href": "index.html#boxcox",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "\\[\n\\begin{cases}\n\\frac{x^{\\lambda} - 1}{\\lambda} &\\quad \\lambda \\neq 0 \\\\\n\\log x &\\quad \\lambda = 0\n\\end{cases}\n\\]\nThe denominator serves to normalize the transformation and preserve the original direction of the effect (the sign is flipped when \\(\\lambda &lt; 0\\)). In application, we may only care about the numerator (e.g. when it suggests using “speed” instead of “time”.)"
   },
   {
     "objectID": "index.html#example-square-of-a-normal-distribution",
     "href": "index.html#example-square-of-a-normal-distribution",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "using BoxCox\nusing CairoMakie\nusing Random\nCairoMakie.activate!(; type=\"svg\")\n\nx = abs2.(randn(MersenneTwister(42), 1000))\nlet f = Figure()\n    ax = Axis(f[1,1]; xlabel=\"x\", ylabel=\"density\")\n    density!(ax, x)\n    ax = Axis(f[1,2]; xlabel=\"theoretical quantiles\", ylabel=\"observed values\")\n    qqnorm!(ax, x)\n    colsize!(f.layout, 1, Aspect(1, 1.0))\n    colsize!(f.layout, 2, Aspect(1, 1.0))\n    resize_to_layout!(f)\n    f\nend"
   },
   {
     "objectID": "index.html#fitting-the-transformation",
     "href": "index.html#fitting-the-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "bc = fit(BoxCoxTransformation, x)\n\nBox-Cox transformation\n\nestimated λ: 0.2073\nresultant transformation:\n\n y^0.2 - 1\n-----------\n    0.2"
   },
   {
     "objectID": "index.html#examining-the-fitted-transformation",
     "href": "index.html#examining-the-fitted-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "Makie extension\n\n\n\nIf an appropriate Makie backend is loaded, then you can also do diagnostic plots.\n\n\n\nboxcoxplot(bc; conf_level=0.95)"
   },
   {
     "objectID": "index.html#applying-the-fitted-transformation",
     "href": "index.html#applying-the-fitted-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "",
     "text": "bc.(x)'\n\n1×1000 adjoint(::Vector{Float64}) with eltype Float64:\n -1.04197  -1.37758  -3.74249  -1.89776  …  -3.3449  -0.295085  -1.06768\n\n\n\nlet f = Figure(; size=(800, 300)), bcx = bc.(x)\n    ax = Axis(f[1,1]; xlabel=\"x\", ylabel=\"density\")\n    density!(ax, bcx)\n    ax = Axis(f[1,2]; xlabel=\"theoretical quantiles\", ylabel=\"observed values\")\n    qqnorm!(ax, bcx; qqline=:fitrobust)\n    colsize!(f.layout, 1, Aspect(1, 1.0))\n    colsize!(f.layout, 2, Aspect(1, 1.0))\n    resize_to_layout!(f)\n    f\nend"
   },
   {
     "objectID": "index.html#example-tree-growth",
     "href": "index.html#example-tree-growth",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Example: Tree Growth",
     "text": "Example: Tree Growth\n\nusing RDatasets: dataset as rdataset\ntrees = rdataset(\"datasets\", \"trees\")\nfirst(trees, 5)\n\n5×3 DataFrame\n\n\n\nRow\nGirth\nHeight\nVolume\n\n\n\nFloat64\nInt64\nFloat64\n\n\n\n\n1\n8.3\n70\n10.3\n\n\n2\n8.6\n65\n10.3\n\n\n3\n8.8\n63\n10.2\n\n\n4\n10.5\n72\n16.4\n\n\n5\n10.7\n81\n18.8\n\n\n\n\n\n\nR Core Team (2024); Meyer (1953)"
   },
   {
     "objectID": "index.html#linear-regression",
     "href": "index.html#linear-regression",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Linear Regression",
     "text": "Linear Regression\n\n\n\ny = trees[!, :Volume]\nX = hcat(ones(length(y)), \n         log.(trees[!, :Height]), \n         log.(trees[!, :Girth]))\nbc_tree = fit(BoxCoxTransformation, X, y)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\nlet f = Figure(; size=(400, 300))\n  boxcoxplot!(Axis(f[1,1]), bc_tree; conf_level=0.95)\n  f\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiagnostics matter!\n\n\n\n\\(\\lambda=0\\) is well within the 95% CI and log fits in well with the rest of the model."
   },
   {
     "objectID": "index.html#linear-regression-1",
     "href": "index.html#linear-regression-1",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Linear Regression",
-    "text": "Linear Regression\n\nusing StatsModels\nfit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\n\n\n\n\nStatsModels extension\n\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to speciy the regression model."
+    "text": "Linear Regression\n\nusing StatsModels\nfit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\n\n\n\n\nStatsModels extension\n\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to specify the regression model."
   },
   {
     "objectID": "index.html#reaction-time-in-the-sleep-study",
     "href": "index.html#reaction-time-in-the-sleep-study",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Reaction time in the sleep study",
     "text": "Reaction time in the sleep study\n\nusing MixedModels\nmodel = fit(MixedModel,\n            @formula(reaction ~ 1 + days + (1 + days | subj)),\n            dataset(:sleepstudy))\n\n\n\n\n\nEst.\nSE\nz\np\nσ_subj\n\n\n(Intercept)\n251.4051\n6.6323\n37.91\n&lt;1e-99\n23.7805\n\n\ndays\n10.4673\n1.5022\n6.97\n&lt;1e-11\n5.7168\n\n\nResidual\n25.5918"
   },
   {
     "objectID": "index.html#fitting-the-transformation-1",
     "href": "index.html#fitting-the-transformation-1",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Fitting the transformation",
     "text": "Fitting the transformation\n\n\n\nbc_mixed = fit(BoxCoxTransformation, \n               model)\n\nBox-Cox transformation\n\nestimated λ: -1.0747\nresultant transformation:\n\n y^-1.1 - 1\n------------\n    -1.1\n\n\n\n\nlet f = Figure(; size=(400, 300))\n  boxcoxplot!(Axis(f[1,1]), bc_mixed; conf_level=0.95)\n  f\nend\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiagnostics matter!\n\n\n\n\\(\\text{time}^{-1}\\) has a natural interpretation as speed and -1 is nearly as good as the “optimal” transformation. We thus use our domain expertise and use speed (as responses per second) instead of the fitted result."
   },
   {
     "objectID": "index.html#speed-in-the-sleep-study",
     "href": "index.html#speed-in-the-sleep-study",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Speed in the sleep study",
     "text": "Speed in the sleep study\n\nmodel_bc = fit(MixedModel,\n               @formula(1000 / reaction ~ 1 + days + (1 + days | subj)),\n               dataset(:sleepstudy))\n\n\n\n\n\nEst.\nSE\nz\np\nσ_subj\n\n\n(Intercept)\n3.9658\n0.1056\n37.55\n&lt;1e-99\n0.4190\n\n\ndays\n-0.1110\n0.0151\n-7.37\n&lt;1e-12\n0.0566\n\n\nResidual\n0.2698\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe use 1000 in the numerator to scale things back to seconds from milliseconds."
   },
   {
     "objectID": "presentation.html#boxcox",
     "href": "presentation.html#boxcox",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Box & Cox (1964)",
     "text": "Box & Cox (1964)\n\\[\n\\begin{cases}\n\\frac{x^{\\lambda} - 1}{\\lambda} &\\quad \\lambda \\neq 0 \\\\\n\\log x &\\quad \\lambda = 0\n\\end{cases}\n\\]\nThe denominator serves to normalize the transformation and preserve the original direction of the effect (the sign is flipped when \\(\\lambda &lt; 0\\)). In application, we may only care about the numerator (e.g. when it suggests using “speed” instead of “time”.)"
   },
   {
     "objectID": "presentation.html#example-square-of-a-normal-distribution",
     "href": "presentation.html#example-square-of-a-normal-distribution",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Example: Square of a Normal Distribution",
     "text": "Example: Square of a Normal Distribution"
   },
   {
     "objectID": "presentation.html#fitting-the-transformation",
     "href": "presentation.html#fitting-the-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Fitting the transformation",
     "text": "Fitting the transformation\n\n\n\nbc = fit(BoxCoxTransformation, x)\n\nBox-Cox transformation\n\nestimated λ: 0.2073\nresultant transformation:\n\n y^0.2 - 1\n-----------\n    0.2"
   },
   {
     "objectID": "presentation.html#examining-the-fitted-transformation",
     "href": "presentation.html#examining-the-fitted-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Examining the fitted transformation",
     "text": "Examining the fitted transformation\n\n\n\n\n\n\n\nMakie extension\n\n\nIf an appropriate Makie backend is loaded, then you can also do diagnostic plots.\n\n\n\n\n\nboxcoxplot(bc; conf_level=0.95)"
   },
   {
     "objectID": "presentation.html#applying-the-fitted-transformation",
     "href": "presentation.html#applying-the-fitted-transformation",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Applying the fitted transformation",
     "text": "Applying the fitted transformation\n\nbc.(x)'\n\n1×1000 adjoint(::Vector{Float64}) with eltype Float64:\n -1.04197  -1.37758  -3.74249  -1.89776  …  -3.3449  -0.295085  -1.06768"
   },
   {
     "objectID": "presentation.html#example-tree-growth",
     "href": "presentation.html#example-tree-growth",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Example: Tree Growth",
     "text": "Example: Tree Growth\n\n\n5×3 DataFrame\n\n\n\nRow\nGirth\nHeight\nVolume\n\n\n\nFloat64\nInt64\nFloat64\n\n\n\n\n1\n8.3\n70\n10.3\n\n\n2\n8.6\n65\n10.3\n\n\n3\n8.8\n63\n10.2\n\n\n4\n10.5\n72\n16.4\n\n\n5\n10.7\n81\n18.8\n\n\n\n\n\n\nR Core Team (2024); Meyer (1953)"
   },
   {
     "objectID": "presentation.html#linear-regression",
     "href": "presentation.html#linear-regression",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Linear Regression",
     "text": "Linear Regression\n\n\n\ny = trees[!, :Volume]\nX = hcat(ones(length(y)), \n         log.(trees[!, :Height]), \n         log.(trees[!, :Girth]))\nbc_tree = fit(BoxCoxTransformation, X, y)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiagnostics matter!\n\n\n\\(\\lambda=0\\) is well within the 95% CI and log fits in well with the rest of the model."
   },
   {
     "objectID": "presentation.html#linear-regression-1",
     "href": "presentation.html#linear-regression-1",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Linear Regression",
-    "text": "Linear Regression\n\nusing StatsModels\nfit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\n\n\n\n\n\nStatsModels extension\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to speciy the regression model."
+    "text": "Linear Regression\n\nusing StatsModels\nfit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)\n\nBox-Cox transformation\n\nestimated λ: -0.0673\nresultant transformation:\n\n y^-0.1 - 1\n------------\n    -0.1\n\n\n\n\n\n\n\n\n\nStatsModels extension\n\n\nIf StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the @formula macro to specify the regression model."
   },
   {
     "objectID": "presentation.html#reaction-time-in-the-sleep-study",
     "href": "presentation.html#reaction-time-in-the-sleep-study",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Reaction time in the sleep study",
     "text": "Reaction time in the sleep study\n\nusing MixedModels\nmodel = fit(MixedModel,\n            @formula(reaction ~ 1 + days + (1 + days | subj)),\n            dataset(:sleepstudy))\n\n\n\n\n\nEst.\nSE\nz\np\nσ_subj\n\n\n(Intercept)\n251.4051\n6.6323\n37.91\n&lt;1e-99\n23.7805\n\n\ndays\n10.4673\n1.5022\n6.97\n&lt;1e-11\n5.7168\n\n\nResidual\n25.5918"
   },
   {
     "objectID": "presentation.html#fitting-the-transformation-1",
     "href": "presentation.html#fitting-the-transformation-1",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Fitting the transformation",
     "text": "Fitting the transformation\n\n\n\nbc_mixed = fit(BoxCoxTransformation, \n               model)\n\nBox-Cox transformation\n\nestimated λ: -1.0747\nresultant transformation:\n\n y^-1.1 - 1\n------------\n    -1.1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDiagnostics matter!\n\n\n\\(\\text{time}^{-1}\\) has a natural interpretation as speed and -1 is nearly as good as the “optimal” transformation. We thus use our domain expertise and use speed (as responses per second) instead of the fitted result."
   },
   {
     "objectID": "presentation.html#speed-in-the-sleep-study",
     "href": "presentation.html#speed-in-the-sleep-study",
-    "title": "BoxCox.jl – A lightweight package with nice extensions",
+    "title": "BoxCox.jl",
     "section": "Speed in the sleep study",
     "text": "Speed in the sleep study\n\nmodel_bc = fit(MixedModel,\n               @formula(1000 / reaction ~ 1 + days + (1 + days | subj)),\n               dataset(:sleepstudy))\n\n\n\n\n\nEst.\nSE\nz\np\nσ_subj\n\n\n(Intercept)\n3.9658\n0.1056\n37.55\n&lt;1e-99\n0.4190\n\n\ndays\n-0.1110\n0.0151\n-7.37\n&lt;1e-12\n0.0566\n\n\nResidual\n0.2698\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nWe use 1000 in the numerator to scale things back to seconds from milliseconds."
   }
