@@ -1,7 +1,7 @@
 ---
 title: BoxCox.jl -- A lightweight package with nice extensions
 author: Phillip Alday
-date: last-modified
+date: 12 July 2024
 julia:
   exeflags: ["--project", "--threads=auto"]
 format: 
