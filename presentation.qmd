@@ -152,7 +152,7 @@ fit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)
 ```
 
 ::: {.callout-note title="StatsModels extension"}
-If StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the `@formula` macro to speciy the regression model. 
+If StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the `@formula` macro to specify the regression model. 
 :::
 
 # This also works for mixed models!
