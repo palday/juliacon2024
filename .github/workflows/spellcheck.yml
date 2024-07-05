@@ -2,7 +2,8 @@
 # see docs at https://github.com/crate-ci/typos
 name: Spell Check
 on: [pull_request]
-
+permissions:
+  pull-requests: write
 jobs:
   typos-check:
     name: Spell Check with Typos
@@ -17,7 +18,7 @@ jobs:
         with:
             config: _typos.toml
             write_changes: true
-      - uses: reviewdog/action-suggester@v1
+      - uses: reviewdog/action-suggester@v1          
         with:
           tool_name: Typos
           fail_on_error: true
