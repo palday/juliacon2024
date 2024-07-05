@@ -31,3 +31,5 @@ _site/
 site_libs/
 *ipynb
 
+
+/.luarc.json
