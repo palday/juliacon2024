@@ -1,5 +1,6 @@
 ---
-title: BoxCox.jl -- A lightweight package with nice extensions
+title: BoxCox.jl
+subtitle: A lightweight package with nice extensions
 author: Phillip Alday
 date: 12 July 2024
 julia:
@@ -215,3 +216,9 @@ We use 1000 in the numerator to scale things back to seconds from milliseconds.
 :::
 
 # References
+
+::: {#refs}
+
+:::
+
+*This page was rendered from git revision {{< git-rev short=true >}}.*
