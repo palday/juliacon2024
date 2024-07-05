@@ -17,26 +17,6 @@ website:
   # reader-mode: true
   repo-url: https://github.com/palday/juliacon2024
   repo-actions: [edit, issue]
-  # cookie-consent:
-  #   type: express
-  #   style: headline
-  #   palette: dark
-#   sidebar:
-#     style: "docked"
-#     search: true
-#     contents:
-#       - href: index.qmd
-#         text: Home
-#       - href: 01-intro.qmd
-#         text: MixedModels.jl
-#       - href: 02-plotting.qmd
-#         text: Visualization
-#       - href: 03-extensions.qmd
-#         text: Extension Packages
-#       - href: 04-bootstrap.qmd
-#         text: Bootstrap
-#       - href: 99-wilkinson-notation.md
-#         text: Formula Syntax
 format:
   html:
     theme:

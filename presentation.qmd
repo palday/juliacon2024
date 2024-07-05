@@ -11,6 +11,10 @@ format:
     output-file: index.html
   revealjs:
     output-file: presentation.html
+format-links:
+  - ipynb
+  - format: revealjs
+    text: Slides
 ---
 
 # The Box-Cox Transformation
