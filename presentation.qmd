@@ -5,6 +5,7 @@ date: last-modified
 julia:
   exeflags: ["--project", "--threads=auto"]
 format: 
+  ipynb: default
   html: 
     output-file: index.html
   revealjs:
