@@ -1,0 +1,224 @@
+---
+title: BoxCox.jl
+subtitle: A lightweight package with nice extensions
+author: Phillip Alday
+date: 12 July 2024
+julia:
+  exeflags: ["--project", "--threads=auto"]
+format: 
+  ipynb: default
+  html: 
+    output-file: index.html
+  revealjs:
+    output-file: presentation.html
+---
+
+# The Box-Cox Transformation
+
+## @boxcox  
+
+$$
+\begin{cases}
+\frac{x^{\lambda} - 1}{\lambda} &\quad \lambda \neq 0 \\
+\log x &\quad \lambda = 0
+\end{cases}
+$$
+
+The denominator serves to normalize the transformation and preserve the original direction of the effect (the sign is flipped when $\lambda < 0$). In application, we may only care about the numerator (e.g. when it suggests using "speed" instead of "time".)
+
+## Example: Square of a Normal Distribution
+
+```{julia}
+using BoxCox
+using CairoMakie
+using Random
+CairoMakie.activate!(; type="svg")
+
+x = abs2.(randn(MersenneTwister(42), 1000))
+let f = Figure()
+    ax = Axis(f[1,1]; xlabel="x", ylabel="density")
+    density!(ax, x)
+    ax = Axis(f[1,2]; xlabel="theoretical quantiles", ylabel="observed values")
+    qqnorm!(ax, x)
+    colsize!(f.layout, 1, Aspect(1, 1.0))
+    colsize!(f.layout, 2, Aspect(1, 1.0))
+    resize_to_layout!(f)
+    f
+end
+```
+
+## Fitting the transformation
+
+<!-- :::: {.columns} -->
+
+<!-- ::: {.column width="50%"} -->
+```{julia}
+#| echo: true
+bc = fit(BoxCoxTransformation, x)
+```
+<!-- ::: -->
+
+<!-- ::: {.column width="50%"} -->
+
+## Examining the fitted transformation
+
+::: {.callout-note title="Makie extension"}
+If an appropriate Makie backend is loaded, then you can also do diagnostic plots. 
+:::
+
+```{julia}
+#| echo: true
+boxcoxplot(bc; conf_level=0.95)
+```
+
+<!-- ::: -->
+
+<!-- :::: -->
+
+## Applying the fitted transformation
+
+```{julia}
+#| echo: true
+bc.(x)'
+```
+
+```{julia}
+#| fig-align: center
+let f = Figure(; size=(800, 300)), bcx = bc.(x)
+    ax = Axis(f[1,1]; xlabel="x", ylabel="density")
+    density!(ax, bcx)
+    ax = Axis(f[1,2]; xlabel="theoretical quantiles", ylabel="observed values")
+    qqnorm!(ax, bcx; qqline=:fitrobust)
+    colsize!(f.layout, 1, Aspect(1, 1.0))
+    colsize!(f.layout, 2, Aspect(1, 1.0))
+    resize_to_layout!(f)
+    f
+end
+```
+
+
+# Conditional Distributions: transforming the response of a regression model
+
+## Example: Tree Growth 
+
+```{julia}
+using RDatasets: dataset as rdataset
+trees = rdataset("datasets", "trees")
+first(trees, 5)
+```
+
+@r; @trees
+
+## Linear Regression
+
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+
+```{julia}
+#| echo: true
+y = trees[!, :Volume]
+X = hcat(ones(length(y)), 
+         log.(trees[!, :Height]), 
+         log.(trees[!, :Girth]))
+bc_tree = fit(BoxCoxTransformation, X, y)
+```
+
+:::
+
+::: {.column width="45%"}
+
+```{julia}
+let f = Figure(; size=(400, 300))
+  boxcoxplot!(Axis(f[1,1]), bc_tree; conf_level=0.95)
+  f
+end
+```
+
+:::
+
+::::
+
+::: {.callout-tip title="Diagnostics matter!"}
+$\lambda=0$ is well within the 95% CI and log fits in well with the rest of the model.
+:::
+
+## Linear Regression
+
+```{julia}
+#| echo: true
+using StatsModels
+fit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)
+```
+
+::: {.callout-note title="StatsModels extension"}
+If StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the `@formula` macro to specify the regression model. 
+:::
+
+# This also works for mixed models!
+
+## Reaction time in the sleep study
+
+```{julia}
+#| echo: true
+using MixedModels
+model = fit(MixedModel,
+            @formula(reaction ~ 1 + days + (1 + days | subj)),
+            dataset(:sleepstudy))
+```
+
+## Fitting the transformation
+
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+```{julia}
+#| echo: true
+bc_mixed = fit(BoxCoxTransformation, 
+               model)
+```
+
+:::
+
+::: {.column width="45%"}
+
+```{julia}
+let f = Figure(; size=(400, 300))
+  boxcoxplot!(Axis(f[1,1]), bc_mixed; conf_level=0.95)
+  f
+end
+```
+
+:::
+
+::::
+
+::: {.callout-tip title="Diagnostics matter!"}
+$\text{time}^{-1}$ has a natural interpretation as *speed* and -1 is nearly as good as the "optimal" transformation.
+We thus use our domain expertise and use *speed* (as responses per second) instead of the fitted result. 
+:::
+
+## Speed in the sleep study
+
+```{julia}
+#| echo: true
+model_bc = fit(MixedModel,
+               @formula(1000 / reaction ~ 1 + days + (1 + days | subj)),
+               dataset(:sleepstudy))
+```
+
+::: {.callout-note}
+We use 1000 in the numerator to scale things back to seconds from milliseconds.
+:::
+
+# References
+
+::: {#refs}
+
+:::
+
+*This page was rendered from git revision {{< git-rev short=true >}}.*
