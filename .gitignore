@@ -28,5 +28,6 @@ _site/
 *\~
 *.swp
 *_files/
+site_libs/
 *ipynb
 
