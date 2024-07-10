@@ -5,21 +5,28 @@ author: Phillip Alday
 date: 12 July 2024
 julia:
   exeflags: ["--project", "--threads=auto"]
-format: 
+format:
   ipynb: default
-  html: 
+  html:
     output-file: index.html
   revealjs:
     output-file: presentation.html
+    logo: ./beacon-brand-assets/logo_beacon-biosignals.svg
+    footer: "Phillip Alday | JuliaCon 2024 | [https://palday.github.io/juliacon2024](https://palday.github.io/juliacon2024/)"
+    theme: [default, custom.scss]
 format-links:
   - ipynb
   - format: revealjs
     text: Slides
+title-slide-attributes:
+    data-background-image: "./beacon-brand-assets/background.svg"
+    data-background-size: "cover"
+    data-background-opacity: "0.8"
 ---
 
-# The Box-Cox Transformation
+# The Box-Cox Transformation {background-image="./beacon-brand-assets/background.svg" background-opacity="0.8" background-size="cover"}
 
-## @boxcox  
+## @boxcox
 
 $$
 \begin{cases}
@@ -67,7 +74,7 @@ bc = fit(BoxCoxTransformation, x)
 ## Examining the fitted transformation
 
 ::: {.callout-note title="Makie extension"}
-If an appropriate Makie backend is loaded, then you can also do diagnostic plots. 
+If an appropriate Makie backend is loaded, then you can also do diagnostic plots.
 :::
 
 ```{julia}
@@ -101,9 +108,9 @@ end
 ```
 
 
-# Conditional Distributions: transforming the response of a regression model
+# Conditional Distributions: transforming the response of a regression model {background-image="./beacon-brand-assets/background.svg" background-opacity="0.8"}
 
-## Example: Tree Growth 
+## Example: Tree Growth
 
 ```{julia}
 using RDatasets: dataset as rdataset
@@ -124,8 +131,8 @@ first(trees, 5)
 ```{julia}
 #| echo: true
 y = trees[!, :Volume]
-X = hcat(ones(length(y)), 
-         log.(trees[!, :Height]), 
+X = hcat(ones(length(y)),
+         log.(trees[!, :Height]),
          log.(trees[!, :Girth]))
 bc_tree = fit(BoxCoxTransformation, X, y)
 ```
@@ -158,10 +165,10 @@ fit(BoxCoxTransformation, @formula(Volume ~ log(Height) + log(Girth)), trees)
 ```
 
 ::: {.callout-note title="StatsModels extension"}
-If StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the `@formula` macro to specify the regression model. 
+If StatsModels.jl is loaded (even indirectly via e.g. GLM.jl), then you can also use the `@formula` macro to specify the regression model.
 :::
 
-# This also works for mixed models!
+# This also works for mixed models! {background-image="./beacon-brand-assets/background.svg" background-opacity="0.8"}
 
 ## Reaction time in the sleep study
 
@@ -182,7 +189,7 @@ model = fit(MixedModel,
 
 ```{julia}
 #| echo: true
-bc_mixed = fit(BoxCoxTransformation, 
+bc_mixed = fit(BoxCoxTransformation,
                model)
 ```
 
@@ -203,7 +210,7 @@ end
 
 ::: {.callout-tip title="Diagnostics matter!"}
 $\text{time}^{-1}$ has a natural interpretation as *speed* and -1 is nearly as good as the "optimal" transformation.
-We thus use our domain expertise and use *speed* (as responses per second) instead of the fitted result. 
+We thus use our domain expertise and use *speed* (as responses per second) instead of the fitted result.
 :::
 
 ## Speed in the sleep study
