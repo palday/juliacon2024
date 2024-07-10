@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.54">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -230,8 +230,8 @@ window.Quarto = {
 </header>
 
 
-<section id="the-box-cox-transformation" class="level1">
-<h1>The Box-Cox Transformation</h1>
+<section id="the-box-cox-transformation" class="level1" data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8" data-background-size="cover">
+<h1 data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8" data-background-size="cover">The Box-Cox Transformation</h1>
 <section id="boxcox" class="level2">
 <h2 class="anchored" data-anchor-id="boxcox"><span class="citation" data-cites="boxcox">Box &amp; Cox (<a href="#ref-boxcox" role="doc-biblioref">1964</a>)</span></h2>
 <p><span class="math display">\[
@@ -274,7 +274,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="fitting-the-transformation">Fitting the transformation</h2>
 <!-- :::: {.columns} -->
 <!-- ::: {.column width="50%"} -->
-<div id="4" class="cell" data-execution_count="1">
+<div id="4" class="cell" data-output-location="column" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bc <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Box-Cox transformation
@@ -305,8 +305,13 @@ Makie extension
 <p>If an appropriate Makie backend is loaded, then you can also do diagnostic plots.</p>
 </div>
 </div>
-<div id="6" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcoxplot</span>(bc; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6" class="cell" data-output-location="column" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">500</span>, <span class="fl">300</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> <span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">boxcoxplot!</span>(ax, bc;</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    f</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <figure class="figure">
@@ -348,61 +353,72 @@ Makie extension
 </div>
 </section>
 </section>
-<section id="conditional-distributions-transforming-the-response-of-a-regression-model" class="level1">
-<h1>Conditional Distributions: transforming the response of a regression model</h1>
+<section id="conditional-distributions-transforming-the-response-of-a-regression-model" class="level1" data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8">
+<h1 data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8">Conditional Distributions: transforming the response of a regression model</h1>
 <section id="example-tree-growth" class="level2">
 <h2 class="anchored" data-anchor-id="example-tree-growth">Example: Tree Growth</h2>
 <div id="12" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">RDatasets</span>: dataset as rdataset</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>trees <span class="op">=</span> <span class="fu">rdataset</span>(<span class="st">"datasets"</span>, <span class="st">"trees"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(trees, <span class="fl">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">RDatasets</span>: dataset as rdataset</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>trees <span class="op">=</span> <span class="fu">rdataset</span>(<span class="st">"datasets"</span>, <span class="st">"trees"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="14" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<div><div style="float: left;"><span>5×3 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<div><div style="float: left;"><span>3×7 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
 <table class="data-frame caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Girth</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Height</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Volume</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">min</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">median</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">max</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">nmissing</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">eltype</th>
 </tr>
 <tr class="odd subheader headerLastRow">
 <th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Symbol">Symbol</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Real">Real</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Real">Real</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th" title="Int64">Int64</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="DataType">DataType</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: left;">Girth</td>
+<td style="text-align: right;">13.2484</td>
 <td style="text-align: right;">8.3</td>
-<td style="text-align: right;">70</td>
-<td style="text-align: right;">10.3</td>
+<td style="text-align: right;">12.9</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Float64</td>
 </tr>
 <tr class="even">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
-<td style="text-align: right;">8.6</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: right;">10.3</td>
+<td style="text-align: left;">Height</td>
+<td style="text-align: right;">76.0</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">76.0</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Int64</td>
 </tr>
 <tr class="odd">
 <td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
-<td style="text-align: right;">8.8</td>
-<td style="text-align: right;">63</td>
+<td style="text-align: left;">Volume</td>
+<td style="text-align: right;">30.171</td>
 <td style="text-align: right;">10.2</td>
-</tr>
-<tr class="even">
-<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
-<td style="text-align: right;">10.5</td>
-<td style="text-align: right;">72</td>
-<td style="text-align: right;">16.4</td>
-</tr>
-<tr class="odd">
-<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
-<td style="text-align: right;">10.7</td>
-<td style="text-align: right;">81</td>
-<td style="text-align: right;">18.8</td>
+<td style="text-align: right;">24.2</td>
+<td style="text-align: right;">77.0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Float64</td>
 </tr>
 </tbody>
 </table>
@@ -415,12 +431,12 @@ Makie extension
 <h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<div id="14" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> trees[!, <span class="op">:</span>Volume]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">hcat</span>(<span class="fu">ones</span>(<span class="fu">length</span>(y)), </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Height]), </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Girth]))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>bc_tree <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="16" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> trees[!, <span class="op">:</span>Volume]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">hcat</span>(<span class="fu">ones</span>(<span class="fu">length</span>(y)),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Height]),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>         <span class="fu">log</span>.(trees[!, <span class="op">:</span>Girth]))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>bc_tree <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Box-Cox transformation
 
@@ -433,15 +449,15 @@ resultant transformation:
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div id="16" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_tree; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  f</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="18" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_tree; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <figure class="figure">
-<p><img src="presentation_files/figure-html/cell-9-output-1.svg" class="img-fluid figure-img"></p>
+<p><img src="presentation_files/figure-html/cell-10-output-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -464,9 +480,13 @@ Diagnostics matter!
 </section>
 <section id="linear-regression-1" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-1">Linear Regression</h2>
-<div id="18" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsModels</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fit</span>(BoxCoxTransformation, <span class="pp">@formula</span>(Volume <span class="op">~</span> <span class="fu">log</span>(Height) <span class="op">+</span> <span class="fu">log</span>(Girth)), trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="20" class="cell" data-output-location="column" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsModels</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fit</span>(BoxCoxTransformation,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@formula</span>(Volume <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">log</span>(Height) <span class="op">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">log</span>(Girth)),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Box-Cox transformation
 
@@ -493,15 +513,15 @@ StatsModels extension
 </div>
 </section>
 </section>
-<section id="this-also-works-for-mixed-models" class="level1">
-<h1>This also works for mixed models!</h1>
+<section id="this-also-works-for-mixed-models" class="level1" data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8">
+<h1 data-background-image="./beacon-brand-assets/background.svg" data-background-opacity="0.8">This also works for mixed models!</h1>
 <section id="reaction-time-in-the-sleep-study" class="level2">
 <h2 class="anchored" data-anchor-id="reaction-time-in-the-sleep-study">Reaction time in the sleep study</h2>
-<div id="20" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MixedModels</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>            <span class="pp">@formula</span>(reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="22" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MixedModels</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="pp">@formula</span>(reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
@@ -546,9 +566,9 @@ StatsModels extension
 <h2 class="anchored" data-anchor-id="fitting-the-transformation-1">Fitting the transformation</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
-<div id="22" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>bc_mixed <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>               model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="24" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bc_mixed <span class="op">=</span> <span class="fu">fit</span>(BoxCoxTransformation,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Box-Cox transformation
 
@@ -561,15 +581,15 @@ resultant transformation:
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div id="24" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_mixed; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  f</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="26" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> f <span class="op">=</span> <span class="fu">Figure</span>(; size<span class="op">=</span>(<span class="fl">400</span>, <span class="fl">300</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxcoxplot!</span>(<span class="fu">Axis</span>(f[<span class="fl">1</span>,<span class="fl">1</span>]), bc_mixed; conf_level<span class="op">=</span><span class="fl">0.95</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  f</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <figure class="figure">
-<p><img src="presentation_files/figure-html/cell-13-output-1.svg" class="img-fluid figure-img"></p>
+<p><img src="presentation_files/figure-html/cell-14-output-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -592,10 +612,10 @@ Diagnostics matter!
 </section>
 <section id="speed-in-the-sleep-study" class="level2">
 <h2 class="anchored" data-anchor-id="speed-in-the-sleep-study">Speed in the sleep study</h2>
-<div id="26" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_bc <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="pp">@formula</span>(<span class="fl">1000</span> <span class="op">/</span> reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="28" class="cell" data-output-location="slide" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model_bc <span class="op">=</span> <span class="fu">fit</span>(MixedModel,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>               <span class="pp">@formula</span>(<span class="fl">1000</span> <span class="op">/</span> reaction <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> days <span class="op">+</span> (<span class="fl">1</span> <span class="op">+</span> days <span class="op">|</span> subj)),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">dataset</span>(<span class="op">:</span>sleepstudy))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
@@ -663,8 +683,8 @@ Meyer, H. A. (1953). <em>Forest mensuration.</em> Penns Valley Publishers.
 R Core Team. (2024). <em>R: A language and environment for statistical computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
 </div>
-<p><em>This page was rendered from git revision <a href="https://github.com/palday/juliacon2024/tree/3927b8b
-">3927b8b
+<p><em>This page was rendered from git revision <a href="https://github.com/palday/juliacon2024/tree/155230d
+">155230d
 </a>.</em></p>
 
 
