@@ -16,6 +16,8 @@ $beacon-dark-pewter: #9f9fc1;
 $beacon-dark-lavender: #bbb6f3;
 $beacon-dark-gray: #3a4651;
 
+$beacon-dark-orange: #ff854e;
+
 // fonts
 $font-family-sans-serif: "Gotham Book", sans-serif;
 $font-family-serif: "Mercury", serif;
@@ -36,8 +38,8 @@ $toc-inactive-border: lighten($toc-active-border, 15%);
 $callout-color-tip: $beacon-dark-teal;
 $callout-color-note: $beacon-dark-sky;
 $callout-color-important: $beacon-dark-pink;
-$callout-color-caution: lighten($callout-color-important, 20%);
-$callout-color-warning: lighten($callout-color-important, 20%);
+$callout-color-caution: $beacon-dark-orange;
+$callout-color-warning: $beacon-dark-orange;
 
 /*-- scss:mixins --*/
 
