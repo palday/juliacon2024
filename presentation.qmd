@@ -13,7 +13,7 @@ format:
     output-file: presentation.html
     logo: ./beacon-brand-assets/logo_beacon-biosignals.svg
     footer: "Phillip Alday | JuliaCon 2024 | [https://palday.github.io/juliacon2024](https://palday.github.io/juliacon2024/)"
-    theme: [default, custom.scss]
+    theme: [default, beacon.scss]
     scrollable: true
 format-links:
   - ipynb

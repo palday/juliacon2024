@@ -1,0 +1,91 @@
+/*-- scss:defaults --*/
+
+// fonts
+$font-family-sans-serif: "Gotham Book", san-serif !default;
+
+$font-family-serif: "Mercury", serif !default;
+
+// colors
+// https://github.com/JuliaLang/julia-logo-graphics#color-definitions
+$julia-blue: #4063D8;
+$julia-green: #389836;
+$julia-purple: #9558B2;
+$julia-red: #CB3C33;
+$beacon-dark-teal: #1FDCB3;
+$beacon-dark-violet: #3b2da9;
+$beacon-dark-blue: #3f66e6;
+$beacon-dark-sky: #089fdc;
+$beacon-dark-pink: #ff2567;
+$beacon-dark-pewter: #9f9fc1;
+$beacon-dark-lavender: #bbb6f3;
+$beacon-dark-gray: #3a4651;
+
+// $body-bg: #f0f1eb !default;
+// $body-color: #000 !default;
+// $selection-bg: #26351c !default;
+
+$link-color: $beacon-dark-teal !default;
+// Toc:
+$toc-color: $julia-purple !default;
+$toc-active-border: $julia-purple !default;
+$toc-inactive-border: lighten($toc-active-border, 15%) !default;
+// Callouts:
+$callout-color-tip: $beacon-dark-teal !default;
+$callout-color-note: $beacon-dark-sky !default;
+$callout-color-important: $beacon-dark-pink !default;
+$callout-color-caution: lighten($callout-color-important, 20%) !default;
+$callout-color-warning: lighten($callout-color-important, 20%) !default;
+
+// headings
+$presentation-heading-font: "Gotham Book", "Palatino Linotype", "Book Antiqua", Palatino,
+  FreeSerif, serif !default;
+// $presentation-heading-color: #383d3d !default;
+
+/*-- scss:mixins --*/
+
+/*-- scss:rules --*/
+
+/* Note */
+    .reveal div.callout-note {
+border-left-color: $callout-color-note !important;
+}
+
+.reveal div.callout-note.callout-style-default .callout-title {
+  background-color: lighten($callout-color-note, 30%) !important;
+}
+
+/* Tip */
+.reveal div.callout-tip {
+border-left-color: $callout-color-tip !important;
+}
+
+.reveal div.callout-tip.callout-style-default .callout-title {
+  background-color: lighten($callout-color-tip, 30%) !important;
+}
+
+/* Caution */
+.reveal div.callout-caution {
+border-left-color: $callout-color-caution !important;
+}
+
+.reveal div.callout-caution.callout-style-default .callout-title {
+  background-color: lighten($callout-color-caution, 20%) !important;
+}
+
+/* Warning */
+.reveal div.callout-warning {
+border-left-color: $callout-color-warning !important;
+}
+
+.reveal div.callout-warning.callout-style-default .callout-title {
+  background-color: lighten($callout-color-warning, 20%) !important;
+}
+
+/* Important */
+.reveal div.callout-important {
+border-left-color: $callout-color-important !important;
+}
+
+.reveal div.callout-important.callout-style-default .callout-title {
+  background-color: lighten($callout-color-important, 30%) !important;
+}
