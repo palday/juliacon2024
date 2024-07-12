@@ -46,8 +46,8 @@ $presentation-heading-font: "Gotham Book", "Palatino Linotype", "Book Antiqua", 
 /*-- scss:rules --*/
 
 /* Note */
-    .reveal div.callout-note {
-border-left-color: $callout-color-note !important;
+.reveal div.callout-note {
+    border-left-color: $callout-color-note !important;
 }
 
 .reveal div.callout-note.callout-style-default .callout-title {
