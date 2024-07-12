@@ -1,16 +1,12 @@
 /*-- scss:defaults --*/
 
-// fonts
-$font-family-sans-serif: "Gotham Book", san-serif !default;
-
-$font-family-serif: "Mercury", serif !default;
-
 // colors
-// https://github.com/JuliaLang/julia-logo-graphics#color-definitions
+// julia https://github.com/JuliaLang/julia-logo-graphics#color-definitions
 $julia-blue: #4063D8;
 $julia-green: #389836;
 $julia-purple: #9558B2;
 $julia-red: #CB3C33;
+// beacon
 $beacon-dark-teal: #1FDCB3;
 $beacon-dark-violet: #3b2da9;
 $beacon-dark-blue: #3f66e6;
@@ -20,26 +16,28 @@ $beacon-dark-pewter: #9f9fc1;
 $beacon-dark-lavender: #bbb6f3;
 $beacon-dark-gray: #3a4651;
 
-// $body-bg: #f0f1eb !default;
-// $body-color: #000 !default;
-// $selection-bg: #26351c !default;
-
-$link-color: $beacon-dark-teal !default;
-// Toc:
-$toc-color: $julia-purple !default;
-$toc-active-border: $julia-purple !default;
-$toc-inactive-border: lighten($toc-active-border, 15%) !default;
-// Callouts:
-$callout-color-tip: $beacon-dark-teal !default;
-$callout-color-note: $beacon-dark-sky !default;
-$callout-color-important: $beacon-dark-pink !default;
-$callout-color-caution: lighten($callout-color-important, 20%) !default;
-$callout-color-warning: lighten($callout-color-important, 20%) !default;
-
+// fonts
+$font-family-sans-serif: "Gotham Book", sans-serif;
+$font-family-serif: "Mercury", serif;
+$font-family-monospace: "JuliaMono",  monospace;
 // headings
-$presentation-heading-font: "Gotham Book", "Palatino Linotype", "Book Antiqua", Palatino,
-  FreeSerif, serif !default;
-// $presentation-heading-color: #383d3d !default;
+$presentation-heading-font: "Gotham Book", sans-serif;
+// $presentation-heading-color: #383d3d;
+
+// $body-bg: #f0f1eb;
+// $body-color: #000;
+$selection-bg: $beacon-dark-teal;
+$link-color: $beacon-dark-teal;
+// Toc:
+$toc-color: $julia-purple;
+$toc-active-border: $julia-purple;
+$toc-inactive-border: lighten($toc-active-border, 15%);
+// Callouts:
+$callout-color-tip: $beacon-dark-teal;
+$callout-color-note: $beacon-dark-sky;
+$callout-color-important: $beacon-dark-pink;
+$callout-color-caution: lighten($callout-color-important, 20%);
+$callout-color-warning: lighten($callout-color-important, 20%);
 
 /*-- scss:mixins --*/
 
