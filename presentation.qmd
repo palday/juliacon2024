@@ -15,6 +15,7 @@ format:
     footer: "Phillip Alday | JuliaCon 2024 | [https://palday.github.io/juliacon2024](https://palday.github.io/juliacon2024/)"
     theme: [default, beacon.scss]
     scrollable: true
+    slide-number: c/t
 format-links:
   - ipynb
   - format: revealjs
@@ -251,5 +252,13 @@ We use 1000 in the numerator to scale things back to seconds from milliseconds.
 ::: {#refs}
 
 :::
+
+# Version Info
+
+```{julia}
+#| echo: false
+using InteractiveUtils
+versioninfo()
+```
 
 *This page was rendered from git revision {{< git-rev short=true >}}.*
