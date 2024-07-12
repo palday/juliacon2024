@@ -1,0 +1,10 @@
+/*
+ * In plain CSS and not SCSS because of an issue with relative paths
+ * see https://github.com/quarto-dev/quarto-cli/discussions/5694
+*/
+
+.slide-background-content{
+    opacity: 0.15;
+    background-image: url("./beacon-brand-assets/background.svg");
+    background-size: cover;
+}

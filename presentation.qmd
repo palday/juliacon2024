@@ -14,6 +14,7 @@ format:
     logo: ./beacon-brand-assets/logo_beacon-biosignals.svg
     footer: "Phillip Alday | JuliaCon 2024 | [https://palday.github.io/juliacon2024](https://palday.github.io/juliacon2024/)"
     theme: [default, beacon.scss]
+    css: beacon.css
     scrollable: true
     slide-number: c/t
 format-links:
