@@ -10,7 +10,6 @@ github:
   owner: palday
   repo: juliacon2024
 author: Phillip Alday
-date: last-modified
 
 website:
   title: "title: BoxCox.jl -- A lightweight package with nice extensions"
@@ -19,14 +18,14 @@ website:
   repo-actions: [edit, issue]
 format:
   html:
-    theme:
-      light: flatly
-      dark: darkly
+    theme: [default, beacon.scss]
+      # light: flatly
+      # dark: darkly
     toc: true
     author:
       - name: Phillip Alday
         email: me@phillipalday.com
         orcid: 0000-0002-9984-5745
-  revealjs: 
+  revealjs:
     echo: false
   ipynb: default
